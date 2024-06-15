@@ -12,9 +12,9 @@ endif
 
 ifeq ($(config),debug)
   RESCOMP = windres
-  TARGETDIR = ../../bin/Debug
+  TARGETDIR = ../../bin/Debug/hello_triangle_prac2
   TARGET = $(TARGETDIR)/hello_triangle_prac2
-  OBJDIR = ../../bin-int/Debug/Debug/hello_triangle_prac2
+  OBJDIR = ../../bin-int/Debug/hello_triangle_prac2
   DEFINES += -DDEBUG
   INCLUDES += -I../../vendor/glfw/include -I../../vendor/glad/include
   FORCE_INCLUDE +=
@@ -39,9 +39,9 @@ endif
 
 ifeq ($(config),release)
   RESCOMP = windres
-  TARGETDIR = ../../bin/Release
+  TARGETDIR = ../../bin/Release/hello_triangle_prac2
   TARGET = $(TARGETDIR)/hello_triangle_prac2
-  OBJDIR = ../../bin-int/Release/Release/hello_triangle_prac2
+  OBJDIR = ../../bin-int/Release/hello_triangle_prac2
   DEFINES += -DNDEBUG
   INCLUDES += -I../../vendor/glfw/include -I../../vendor/glad/include
   FORCE_INCLUDE +=

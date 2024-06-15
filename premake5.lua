@@ -9,10 +9,12 @@ outputdir = "%{cfg.buildcfg}"
 IncludeDirs = {}
 IncludeDirs["glfw"] = "%{wks.location}/vendor/glfw/include"
 IncludeDirs["glad"] = "%{wks.location}/vendor/glad/include"
-
+IncludeDirs["shader"] = "%{wks.location}/shader/include"
 
 include "vendor/glfw"
 include "vendor/glad"
+
+include "shader"
 
 include "hello_window"
 include "hello_triangle"

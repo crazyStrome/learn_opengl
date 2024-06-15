@@ -1,4 +1,5 @@
-project "hello_triangle_src"  
+project "shaders_prac1"  
+    filename "%{prj.group}_%{prj.name}"
     kind "ConsoleApp"   
     language "C++"   
     targetdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
@@ -7,14 +8,16 @@ project "hello_triangle_src"
     includedirs {
         "%{IncludeDirs.glfw}",
         "%{IncludeDirs.glad}",
+        "%{IncludeDirs.shader}",
     }
     files { 
-        "./main.cc", 
+        "main.cc", 
     }
     links {
         "glfw",
         "GL",
         "glad",
+        "shader",
     }
     filter "configurations:Debug"
         defines { "DEBUG" }  

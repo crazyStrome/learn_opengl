@@ -85,7 +85,7 @@ int main()
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, 2 * 3 * sizeof(unsigned int), indices, GL_STATIC_DRAW);
 
-    Shader shader("res/shader_source/shaders/shader.shader");
+    Shader shader("res/shader_source/shaders/shader_prac1.shader");
 
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);

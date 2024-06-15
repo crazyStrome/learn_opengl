@@ -85,7 +85,7 @@ int main()
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, 2 * 3 * sizeof(unsigned int), indices, GL_STATIC_DRAW);
 
-    Shader shader("res/shader_source/shaders/shader.shader");
+    Shader shader("res/shader_source/shaders/shader_prac2.shader");
 
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -100,7 +100,10 @@ int main()
 
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
+        double curTime = glfwGetTime();
+        float curX = sin(curTime) / 2.0;
         shader.Use();
+        shader.SetFloat("u_x", curX);
         glBindVertexArray(VAO);
         glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);

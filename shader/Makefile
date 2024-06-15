@@ -12,11 +12,11 @@ endif
 
 ifeq ($(config),debug)
   RESCOMP = windres
-  TARGETDIR = ../bin/Debug/hello_window
-  TARGET = $(TARGETDIR)/hello_window
-  OBJDIR = ../bin-int/Debug/hello_window
+  TARGETDIR = ../bin/Debug/shader
+  TARGET = $(TARGETDIR)/libshader.a
+  OBJDIR = ../bin-int/Debug/shader
   DEFINES += -DDEBUG
-  INCLUDES += -I../vendor/glfw/include -I../vendor/glad/include
+  INCLUDES += -I../vendor/glfw/include -I../vendor/glad/include -Iinclude
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -g
@@ -25,7 +25,7 @@ ifeq ($(config),debug)
   LIBS += ../bin/Debug/GLFW/libGLFW.a ../bin/Debug/glad/libglad.a -lGL
   LDDEPS += ../bin/Debug/GLFW/libGLFW.a ../bin/Debug/glad/libglad.a
   ALL_LDFLAGS += $(LDFLAGS)
-  LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
+  LINKCMD = $(AR) -rcs "$@" $(OBJECTS)
   define PREBUILDCMDS
   endef
   define PRELINKCMDS
@@ -39,11 +39,11 @@ endif
 
 ifeq ($(config),release)
   RESCOMP = windres
-  TARGETDIR = ../bin/Release/hello_window
-  TARGET = $(TARGETDIR)/hello_window
-  OBJDIR = ../bin-int/Release/hello_window
+  TARGETDIR = ../bin/Release/shader
+  TARGET = $(TARGETDIR)/libshader.a
+  OBJDIR = ../bin-int/Release/shader
   DEFINES += -DNDEBUG
-  INCLUDES += -I../vendor/glfw/include -I../vendor/glad/include
+  INCLUDES += -I../vendor/glfw/include -I../vendor/glad/include -Iinclude
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -O2
@@ -52,7 +52,7 @@ ifeq ($(config),release)
   LIBS += ../bin/Release/GLFW/libGLFW.a ../bin/Release/glad/libglad.a -lGL
   LDDEPS += ../bin/Release/GLFW/libGLFW.a ../bin/Release/glad/libglad.a
   ALL_LDFLAGS += $(LDFLAGS) -s
-  LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
+  LINKCMD = $(AR) -rcs "$@" $(OBJECTS)
   define PREBUILDCMDS
   endef
   define PRELINKCMDS
@@ -65,7 +65,7 @@ all: prebuild prelink $(TARGET)
 endif
 
 OBJECTS := \
-	$(OBJDIR)/main.o \
+	$(OBJDIR)/shader.o \
 
 RESOURCES := \
 
@@ -77,7 +77,7 @@ ifeq (.exe,$(findstring .exe,$(ComSpec)))
 endif
 
 $(TARGET): $(GCH) ${CUSTOMFILES} $(OBJECTS) $(LDDEPS) $(RESOURCES) | $(TARGETDIR)
-	@echo Linking hello_window
+	@echo Linking shader
 	$(SILENT) $(LINKCMD)
 	$(POSTBUILDCMDS)
 
@@ -100,7 +100,7 @@ else
 endif
 
 clean:
-	@echo Cleaning hello_window
+	@echo Cleaning shader
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -f  $(TARGET)
 	$(SILENT) rm -rf $(OBJDIR)
@@ -124,7 +124,7 @@ else
 $(OBJECTS): | $(OBJDIR)
 endif
 
-$(OBJDIR)/main.o: src/main.cc
+$(OBJDIR)/shader.o: src/shader.cc
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 

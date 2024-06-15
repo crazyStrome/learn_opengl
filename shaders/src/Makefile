@@ -12,18 +12,18 @@ endif
 
 ifeq ($(config),debug)
   RESCOMP = windres
-  TARGETDIR = ../../bin/Debug
+  TARGETDIR = ../../bin/Debug/shaders_src
   TARGET = $(TARGETDIR)/shaders_src
-  OBJDIR = ../../bin-int/Debug/Debug/shaders_src
+  OBJDIR = ../../bin-int/Debug/shaders_src
   DEFINES += -DDEBUG
-  INCLUDES += -I../../vendor/glfw/include -I../../vendor/glad/include
+  INCLUDES += -I../../vendor/glfw/include -I../../vendor/glad/include -I../../shader/include
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -g
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -g
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  LIBS += ../../bin/Debug/GLFW/libGLFW.a ../../bin/Debug/glad/libglad.a -lGL
-  LDDEPS += ../../bin/Debug/GLFW/libGLFW.a ../../bin/Debug/glad/libglad.a
+  LIBS += ../../bin/Debug/GLFW/libGLFW.a ../../bin/Debug/glad/libglad.a ../../bin/Debug/shader/libshader.a -lGL
+  LDDEPS += ../../bin/Debug/GLFW/libGLFW.a ../../bin/Debug/glad/libglad.a ../../bin/Debug/shader/libshader.a
   ALL_LDFLAGS += $(LDFLAGS)
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
@@ -39,18 +39,18 @@ endif
 
 ifeq ($(config),release)
   RESCOMP = windres
-  TARGETDIR = ../../bin/Release
+  TARGETDIR = ../../bin/Release/shaders_src
   TARGET = $(TARGETDIR)/shaders_src
-  OBJDIR = ../../bin-int/Release/Release/shaders_src
+  OBJDIR = ../../bin-int/Release/shaders_src
   DEFINES += -DNDEBUG
-  INCLUDES += -I../../vendor/glfw/include -I../../vendor/glad/include
+  INCLUDES += -I../../vendor/glfw/include -I../../vendor/glad/include -I../../shader/include
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -O2
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -O2
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  LIBS += ../../bin/Release/GLFW/libGLFW.a ../../bin/Release/glad/libglad.a -lGL
-  LDDEPS += ../../bin/Release/GLFW/libGLFW.a ../../bin/Release/glad/libglad.a
+  LIBS += ../../bin/Release/GLFW/libGLFW.a ../../bin/Release/glad/libglad.a ../../bin/Release/shader/libshader.a -lGL
+  LDDEPS += ../../bin/Release/GLFW/libGLFW.a ../../bin/Release/glad/libglad.a ../../bin/Release/shader/libshader.a
   ALL_LDFLAGS += $(LDFLAGS) -s
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS

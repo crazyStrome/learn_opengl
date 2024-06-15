@@ -1,8 +1,8 @@
 project "hello_triangle_prac1"  
     kind "ConsoleApp"   
     language "C++"   
-    targetdir ("%{wks.location}/bin/" .. outputdir)
-	objdir ("%{wks.location}/bin-int/" .. outputdir)
+    targetdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
 
     includedirs {
         "%{IncludeDirs.glfw}",

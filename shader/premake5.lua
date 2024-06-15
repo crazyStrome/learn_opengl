@@ -1,5 +1,5 @@
-project "hello_triangle_src"  
-    kind "ConsoleApp"   
+project "shader"  
+    kind "StaticLib"   
     language "C++"   
     targetdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
@@ -7,9 +7,10 @@ project "hello_triangle_src"
     includedirs {
         "%{IncludeDirs.glfw}",
         "%{IncludeDirs.glad}",
+        "%{IncludeDirs.shader}",
     }
     files { 
-        "./main.cc", 
+        "src/*.cc", 
     }
     links {
         "glfw",
