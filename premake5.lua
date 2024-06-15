@@ -12,3 +12,4 @@ include "vendor/glfw"
 include "vendor/glad"
 
 include "hello_window"
+include "hello_triangle"
