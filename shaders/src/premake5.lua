@@ -1,4 +1,5 @@
-project "hello_triangle_prac3"  
+project "shaders_src"  
+    filename "%{prj.group}_%{prj.name}"
     kind "ConsoleApp"   
     language "C++"   
     targetdir ("%{wks.location}/bin/" .. outputdir)
@@ -9,7 +10,7 @@ project "hello_triangle_prac3"
         "%{IncludeDirs.glad}",
     }
     files { 
-        "./main.cc", 
+        "main.cc", 
     }
     links {
         "glfw",

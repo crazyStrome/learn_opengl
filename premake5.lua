@@ -1,7 +1,10 @@
-workspace "learn_opengl"  
-    configurations { "Debug", "Release" } 
+workspace "learn_opengl"
+    configurations {
+        "Debug",
+        "Release",
+    }
 
-outputdir = "output"
+outputdir = "%{cfg.buildcfg}"
 
 IncludeDirs = {}
 IncludeDirs["glfw"] = "%{wks.location}/vendor/glfw/include"
@@ -13,3 +16,9 @@ include "vendor/glad"
 
 include "hello_window"
 include "hello_triangle"
+include "shaders"
+
+if _ACTION == "clean" then
+    os.rmdir("./bin")
+    os.rmdir("./bin-int")
+end

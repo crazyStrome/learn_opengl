@@ -13,8 +13,8 @@ endif
 ifeq ($(config),debug)
   RESCOMP = windres
   TARGETDIR = ../../bin/Debug
-  TARGET = $(TARGETDIR)/hello_triangle_src
-  OBJDIR = ../../bin-int/Debug/Debug/hello_triangle_src
+  TARGET = $(TARGETDIR)/shaders_src
+  OBJDIR = ../../bin-int/Debug/Debug/shaders_src
   DEFINES += -DDEBUG
   INCLUDES += -I../../vendor/glfw/include -I../../vendor/glad/include
   FORCE_INCLUDE +=
@@ -40,8 +40,8 @@ endif
 ifeq ($(config),release)
   RESCOMP = windres
   TARGETDIR = ../../bin/Release
-  TARGET = $(TARGETDIR)/hello_triangle_src
-  OBJDIR = ../../bin-int/Release/Release/hello_triangle_src
+  TARGET = $(TARGETDIR)/shaders_src
+  OBJDIR = ../../bin-int/Release/Release/shaders_src
   DEFINES += -DNDEBUG
   INCLUDES += -I../../vendor/glfw/include -I../../vendor/glad/include
   FORCE_INCLUDE +=
@@ -77,7 +77,7 @@ ifeq (.exe,$(findstring .exe,$(ComSpec)))
 endif
 
 $(TARGET): $(GCH) ${CUSTOMFILES} $(OBJECTS) $(LDDEPS) $(RESOURCES) | $(TARGETDIR)
-	@echo Linking hello_triangle_src
+	@echo Linking shaders_src
 	$(SILENT) $(LINKCMD)
 	$(POSTBUILDCMDS)
 
@@ -100,7 +100,7 @@ else
 endif
 
 clean:
-	@echo Cleaning hello_triangle_src
+	@echo Cleaning shaders_src
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -f  $(TARGET)
 	$(SILENT) rm -rf $(OBJDIR)

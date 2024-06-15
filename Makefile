@@ -12,28 +12,32 @@ ifeq ($(config),debug)
   GLFW_config = debug
   glad_config = debug
   hello_window_config = debug
-  src_config = debug
-  prac1_config = debug
-  prac2_config = debug
-  prac3_config = debug
+  hello_triangle_src_config = debug
+  hello_triangle_prac1_config = debug
+  hello_triangle_prac2_config = debug
+  hello_triangle_prac3_config = debug
+  shaders_src_config = debug
 endif
 ifeq ($(config),release)
   GLFW_config = release
   glad_config = release
   hello_window_config = release
-  src_config = release
-  prac1_config = release
-  prac2_config = release
-  prac3_config = release
+  hello_triangle_src_config = release
+  hello_triangle_prac1_config = release
+  hello_triangle_prac2_config = release
+  hello_triangle_prac3_config = release
+  shaders_src_config = release
 endif
 
-PROJECTS := GLFW glad hello_window src prac1 prac2 prac3
+PROJECTS := GLFW glad hello_window hello_triangle_src hello_triangle_prac1 hello_triangle_prac2 hello_triangle_prac3 shaders_src
 
-.PHONY: all clean help $(PROJECTS) hello_triangle
+.PHONY: all clean help $(PROJECTS) hello_triangle shaders
 
 all: $(PROJECTS)
 
-hello_triangle: prac1 prac2 prac3 src
+hello_triangle: hello_triangle_prac1 hello_triangle_prac2 hello_triangle_prac3 hello_triangle_src
+
+shaders: shaders_src
 
 GLFW:
 ifneq (,$(GLFW_config))
@@ -53,28 +57,34 @@ ifneq (,$(hello_window_config))
 	@${MAKE} --no-print-directory -C hello_window -f Makefile config=$(hello_window_config)
 endif
 
-src: GLFW glad
-ifneq (,$(src_config))
-	@echo "==== Building src ($(src_config)) ===="
-	@${MAKE} --no-print-directory -C hello_triangle/src -f Makefile config=$(src_config)
+hello_triangle_src: GLFW glad
+ifneq (,$(hello_triangle_src_config))
+	@echo "==== Building hello_triangle_src ($(hello_triangle_src_config)) ===="
+	@${MAKE} --no-print-directory -C hello_triangle/src -f Makefile config=$(hello_triangle_src_config)
 endif
 
-prac1: GLFW glad
-ifneq (,$(prac1_config))
-	@echo "==== Building prac1 ($(prac1_config)) ===="
-	@${MAKE} --no-print-directory -C hello_triangle/prac1 -f Makefile config=$(prac1_config)
+hello_triangle_prac1: GLFW glad
+ifneq (,$(hello_triangle_prac1_config))
+	@echo "==== Building hello_triangle_prac1 ($(hello_triangle_prac1_config)) ===="
+	@${MAKE} --no-print-directory -C hello_triangle/prac1 -f Makefile config=$(hello_triangle_prac1_config)
 endif
 
-prac2: GLFW glad
-ifneq (,$(prac2_config))
-	@echo "==== Building prac2 ($(prac2_config)) ===="
-	@${MAKE} --no-print-directory -C hello_triangle/prac2 -f Makefile config=$(prac2_config)
+hello_triangle_prac2: GLFW glad
+ifneq (,$(hello_triangle_prac2_config))
+	@echo "==== Building hello_triangle_prac2 ($(hello_triangle_prac2_config)) ===="
+	@${MAKE} --no-print-directory -C hello_triangle/prac2 -f Makefile config=$(hello_triangle_prac2_config)
 endif
 
-prac3: GLFW glad
-ifneq (,$(prac3_config))
-	@echo "==== Building prac3 ($(prac3_config)) ===="
-	@${MAKE} --no-print-directory -C hello_triangle/prac3 -f Makefile config=$(prac3_config)
+hello_triangle_prac3: GLFW glad
+ifneq (,$(hello_triangle_prac3_config))
+	@echo "==== Building hello_triangle_prac3 ($(hello_triangle_prac3_config)) ===="
+	@${MAKE} --no-print-directory -C hello_triangle/prac3 -f Makefile config=$(hello_triangle_prac3_config)
+endif
+
+shaders_src: GLFW glad
+ifneq (,$(shaders_src_config))
+	@echo "==== Building shaders_src ($(shaders_src_config)) ===="
+	@${MAKE} --no-print-directory -C shaders/src -f Makefile config=$(shaders_src_config)
 endif
 
 clean:
@@ -85,6 +95,7 @@ clean:
 	@${MAKE} --no-print-directory -C hello_triangle/prac1 -f Makefile clean
 	@${MAKE} --no-print-directory -C hello_triangle/prac2 -f Makefile clean
 	@${MAKE} --no-print-directory -C hello_triangle/prac3 -f Makefile clean
+	@${MAKE} --no-print-directory -C shaders/src -f Makefile clean
 
 help:
 	@echo "Usage: make [config=name] [target]"
@@ -99,9 +110,10 @@ help:
 	@echo "   GLFW"
 	@echo "   glad"
 	@echo "   hello_window"
-	@echo "   src"
-	@echo "   prac1"
-	@echo "   prac2"
-	@echo "   prac3"
+	@echo "   hello_triangle_src"
+	@echo "   hello_triangle_prac1"
+	@echo "   hello_triangle_prac2"
+	@echo "   hello_triangle_prac3"
+	@echo "   shaders_src"
 	@echo ""
 	@echo "For more information, see https://github.com/premake/premake-core/wiki"

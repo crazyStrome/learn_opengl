@@ -1,22 +1,21 @@
-project "prac1"  
+project "hello_triangle_prac1"  
     kind "ConsoleApp"   
     language "C++"   
-    targetdir "%{wks.location}/bin/%{prj.group}/%{prj.name}" 
-    objdir "%{wks.location}/obj/%{prj.group}/%{prj.name}" 
+    targetdir ("%{wks.location}/bin/" .. outputdir)
+	objdir ("%{wks.location}/bin-int/" .. outputdir)
 
     includedirs {
         "%{IncludeDirs.glfw}",
         "%{IncludeDirs.glad}",
     }
     files { 
-        "*.cc", 
+        "./main.cc", 
     }
     links {
         "glfw",
         "GL",
         "glad",
     }
-    targetname "%{prj.group}"
     filter "configurations:Debug"
         defines { "DEBUG" }  
         symbols "On" 

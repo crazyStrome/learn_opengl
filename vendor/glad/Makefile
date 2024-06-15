@@ -12,9 +12,9 @@ endif
 
 ifeq ($(config),debug)
   RESCOMP = windres
-  TARGETDIR = ../../bin/output/glad
+  TARGETDIR = ../../bin/Debug/glad
   TARGET = $(TARGETDIR)/libglad.a
-  OBJDIR = ../../bin-int/output/glad/Debug
+  OBJDIR = ../../bin-int/Debug/glad
   DEFINES += -DDEBUG
   INCLUDES += -Iinclude
   FORCE_INCLUDE +=
@@ -39,9 +39,9 @@ endif
 
 ifeq ($(config),release)
   RESCOMP = windres
-  TARGETDIR = ../../bin/output/glad
+  TARGETDIR = ../../bin/Release/glad
   TARGET = $(TARGETDIR)/libglad.a
-  OBJDIR = ../../bin-int/output/glad/Release
+  OBJDIR = ../../bin-int/Release/glad
   DEFINES += -DNDEBUG
   INCLUDES += -Iinclude
   FORCE_INCLUDE +=

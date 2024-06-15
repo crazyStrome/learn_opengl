@@ -1,0 +1,3 @@
+
+group "shaders"
+    include "src"

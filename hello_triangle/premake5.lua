@@ -1,4 +1,3 @@
-
 group "hello_triangle"
     include "src"
     include "prac1"

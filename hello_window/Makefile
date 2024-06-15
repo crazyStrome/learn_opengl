@@ -12,9 +12,9 @@ endif
 
 ifeq ($(config),debug)
   RESCOMP = windres
-  TARGETDIR = ../bin/hello_window
+  TARGETDIR = ../bin/Debug
   TARGET = $(TARGETDIR)/hello_window
-  OBJDIR = ../obj/hello_window/Debug
+  OBJDIR = ../bin-int/Debug/Debug/hello_window
   DEFINES += -DDEBUG
   INCLUDES += -I../vendor/glfw/include -I../vendor/glad/include
   FORCE_INCLUDE +=
@@ -22,8 +22,8 @@ ifeq ($(config),debug)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -g
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -g
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  LIBS += ../bin/output/GLFW/libGLFW.a ../bin/output/glad/libglad.a -lGL
-  LDDEPS += ../bin/output/GLFW/libGLFW.a ../bin/output/glad/libglad.a
+  LIBS += ../bin/Debug/GLFW/libGLFW.a ../bin/Debug/glad/libglad.a -lGL
+  LDDEPS += ../bin/Debug/GLFW/libGLFW.a ../bin/Debug/glad/libglad.a
   ALL_LDFLAGS += $(LDFLAGS)
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
@@ -39,9 +39,9 @@ endif
 
 ifeq ($(config),release)
   RESCOMP = windres
-  TARGETDIR = ../bin/hello_window
+  TARGETDIR = ../bin/Release
   TARGET = $(TARGETDIR)/hello_window
-  OBJDIR = ../obj/hello_window/Release
+  OBJDIR = ../bin-int/Release/Release/hello_window
   DEFINES += -DNDEBUG
   INCLUDES += -I../vendor/glfw/include -I../vendor/glad/include
   FORCE_INCLUDE +=
@@ -49,8 +49,8 @@ ifeq ($(config),release)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -O2
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -O2
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  LIBS += ../bin/output/GLFW/libGLFW.a ../bin/output/glad/libglad.a -lGL
-  LDDEPS += ../bin/output/GLFW/libGLFW.a ../bin/output/glad/libglad.a
+  LIBS += ../bin/Release/GLFW/libGLFW.a ../bin/Release/glad/libglad.a -lGL
+  LDDEPS += ../bin/Release/GLFW/libGLFW.a ../bin/Release/glad/libglad.a
   ALL_LDFLAGS += $(LDFLAGS) -s
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
