@@ -8,6 +8,7 @@
                 "${workspaceFolder}/vendor/glad/include",
                 "${workspaceFolder}/shader/include",
                 "${workspaceFolder}/stb_image/include",
+                "${workspaceFolder}/vendor/glm",
             ],
             "defines": [],
             "cStandard": "c17",

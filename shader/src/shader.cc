@@ -3,6 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <glm/gtc/type_ptr.hpp>
 
 
 SharderSource Shader::ParseShaderSource(const std::string& sourcePath)
@@ -104,6 +105,11 @@ void Shader::SetInt(const std::string& name, int value) const
 void Shader::SetFloat(const std::string& name, float value) const
 {
     glUniform1f(GetUniformLocation(name), value);
+}
+
+void Shader::SetMat4(const std::string& name, const glm::mat4& trans) const
+{
+    glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, glm::value_ptr(trans));
 }
 
 int Shader::GetUniformLocation(const std::string& name) const

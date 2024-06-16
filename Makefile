@@ -26,6 +26,9 @@ ifeq ($(config),debug)
   textures_prac2_config = debug
   textures_prac3_config = debug
   textures_prac4_config = debug
+  transformations_src_config = debug
+  transformations_prac1_config = debug
+  transformations_prac2_config = debug
 endif
 ifeq ($(config),release)
   GLFW_config = release
@@ -45,11 +48,14 @@ ifeq ($(config),release)
   textures_prac2_config = release
   textures_prac3_config = release
   textures_prac4_config = release
+  transformations_src_config = release
+  transformations_prac1_config = release
+  transformations_prac2_config = release
 endif
 
-PROJECTS := GLFW glad shader hello_window hello_triangle_src hello_triangle_prac1 hello_triangle_prac2 hello_triangle_prac3 shaders_src shaders_prac1 shaders_prac2 shaders_prac3 textures_src textures_prac1 textures_prac2 textures_prac3 textures_prac4
+PROJECTS := GLFW glad shader hello_window hello_triangle_src hello_triangle_prac1 hello_triangle_prac2 hello_triangle_prac3 shaders_src shaders_prac1 shaders_prac2 shaders_prac3 textures_src textures_prac1 textures_prac2 textures_prac3 textures_prac4 transformations_src transformations_prac1 transformations_prac2
 
-.PHONY: all clean help $(PROJECTS) hello_triangle shaders textures
+.PHONY: all clean help $(PROJECTS) hello_triangle shaders textures transformations
 
 all: $(PROJECTS)
 
@@ -58,6 +64,8 @@ hello_triangle: hello_triangle_prac1 hello_triangle_prac2 hello_triangle_prac3 h
 shaders: shaders_prac1 shaders_prac2 shaders_prac3 shaders_src
 
 textures: textures_prac1 textures_prac2 textures_prac3 textures_prac4 textures_src
+
+transformations: transformations_prac1 transformations_prac2 transformations_src
 
 GLFW:
 ifneq (,$(GLFW_config))
@@ -161,6 +169,24 @@ ifneq (,$(textures_prac4_config))
 	@${MAKE} --no-print-directory -C textures/prac4 -f Makefile config=$(textures_prac4_config)
 endif
 
+transformations_src: GLFW glad shader
+ifneq (,$(transformations_src_config))
+	@echo "==== Building transformations_src ($(transformations_src_config)) ===="
+	@${MAKE} --no-print-directory -C transformations/src -f Makefile config=$(transformations_src_config)
+endif
+
+transformations_prac1: GLFW glad shader
+ifneq (,$(transformations_prac1_config))
+	@echo "==== Building transformations_prac1 ($(transformations_prac1_config)) ===="
+	@${MAKE} --no-print-directory -C transformations/prac1 -f Makefile config=$(transformations_prac1_config)
+endif
+
+transformations_prac2: GLFW glad shader
+ifneq (,$(transformations_prac2_config))
+	@echo "==== Building transformations_prac2 ($(transformations_prac2_config)) ===="
+	@${MAKE} --no-print-directory -C transformations/prac2 -f Makefile config=$(transformations_prac2_config)
+endif
+
 clean:
 	@${MAKE} --no-print-directory -C vendor/glfw -f Makefile clean
 	@${MAKE} --no-print-directory -C vendor/glad -f Makefile clean
@@ -179,6 +205,9 @@ clean:
 	@${MAKE} --no-print-directory -C textures/prac2 -f Makefile clean
 	@${MAKE} --no-print-directory -C textures/prac3 -f Makefile clean
 	@${MAKE} --no-print-directory -C textures/prac4 -f Makefile clean
+	@${MAKE} --no-print-directory -C transformations/src -f Makefile clean
+	@${MAKE} --no-print-directory -C transformations/prac1 -f Makefile clean
+	@${MAKE} --no-print-directory -C transformations/prac2 -f Makefile clean
 
 help:
 	@echo "Usage: make [config=name] [target]"
@@ -207,5 +236,8 @@ help:
 	@echo "   textures_prac2"
 	@echo "   textures_prac3"
 	@echo "   textures_prac4"
+	@echo "   transformations_src"
+	@echo "   transformations_prac1"
+	@echo "   transformations_prac2"
 	@echo ""
 	@echo "For more information, see https://github.com/premake/premake-core/wiki"
