@@ -23,6 +23,7 @@ include "hello_triangle"
 include "shaders"
 include "textures"
 include "transformations"
+include "coordinate_systems"
 
 if _ACTION == "clean" then
     os.rmdir("./bin")

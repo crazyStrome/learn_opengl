@@ -29,6 +29,7 @@ ifeq ($(config),debug)
   transformations_src_config = debug
   transformations_prac1_config = debug
   transformations_prac2_config = debug
+  coordinate_systems_src_config = debug
 endif
 ifeq ($(config),release)
   GLFW_config = release
@@ -51,9 +52,10 @@ ifeq ($(config),release)
   transformations_src_config = release
   transformations_prac1_config = release
   transformations_prac2_config = release
+  coordinate_systems_src_config = release
 endif
 
-PROJECTS := GLFW glad shader hello_window hello_triangle_src hello_triangle_prac1 hello_triangle_prac2 hello_triangle_prac3 shaders_src shaders_prac1 shaders_prac2 shaders_prac3 textures_src textures_prac1 textures_prac2 textures_prac3 textures_prac4 transformations_src transformations_prac1 transformations_prac2
+PROJECTS := GLFW glad shader hello_window hello_triangle_src hello_triangle_prac1 hello_triangle_prac2 hello_triangle_prac3 shaders_src shaders_prac1 shaders_prac2 shaders_prac3 textures_src textures_prac1 textures_prac2 textures_prac3 textures_prac4 transformations_src transformations_prac1 transformations_prac2 coordinate_systems_src
 
 .PHONY: all clean help $(PROJECTS) hello_triangle shaders textures transformations
 
@@ -65,7 +67,7 @@ shaders: shaders_prac1 shaders_prac2 shaders_prac3 shaders_src
 
 textures: textures_prac1 textures_prac2 textures_prac3 textures_prac4 textures_src
 
-transformations: transformations_prac1 transformations_prac2 transformations_src
+transformations: coordinate_systems_src transformations_prac1 transformations_prac2 transformations_src
 
 GLFW:
 ifneq (,$(GLFW_config))
@@ -187,6 +189,12 @@ ifneq (,$(transformations_prac2_config))
 	@${MAKE} --no-print-directory -C transformations/prac2 -f Makefile config=$(transformations_prac2_config)
 endif
 
+coordinate_systems_src: GLFW glad shader
+ifneq (,$(coordinate_systems_src_config))
+	@echo "==== Building coordinate_systems_src ($(coordinate_systems_src_config)) ===="
+	@${MAKE} --no-print-directory -C coordinate_systems/src -f Makefile config=$(coordinate_systems_src_config)
+endif
+
 clean:
 	@${MAKE} --no-print-directory -C vendor/glfw -f Makefile clean
 	@${MAKE} --no-print-directory -C vendor/glad -f Makefile clean
@@ -208,6 +216,7 @@ clean:
 	@${MAKE} --no-print-directory -C transformations/src -f Makefile clean
 	@${MAKE} --no-print-directory -C transformations/prac1 -f Makefile clean
 	@${MAKE} --no-print-directory -C transformations/prac2 -f Makefile clean
+	@${MAKE} --no-print-directory -C coordinate_systems/src -f Makefile clean
 
 help:
 	@echo "Usage: make [config=name] [target]"
@@ -239,5 +248,6 @@ help:
 	@echo "   transformations_src"
 	@echo "   transformations_prac1"
 	@echo "   transformations_prac2"
+	@echo "   coordinate_systems_src"
 	@echo ""
 	@echo "For more information, see https://github.com/premake/premake-core/wiki"

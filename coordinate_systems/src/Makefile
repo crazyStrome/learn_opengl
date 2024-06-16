@@ -12,9 +12,9 @@ endif
 
 ifeq ($(config),debug)
   RESCOMP = windres
-  TARGETDIR = ../../bin/Debug/transformations_src
-  TARGET = $(TARGETDIR)/transformations_src
-  OBJDIR = ../../bin-int/Debug/transformations_src
+  TARGETDIR = ../../bin/Debug/coordinate_systems_src
+  TARGET = $(TARGETDIR)/coordinate_systems_src
+  OBJDIR = ../../bin-int/Debug/coordinate_systems_src
   DEFINES += -DDEBUG
   INCLUDES += -I../../vendor/glfw/include -I../../vendor/glad/include -I../../vendor/glm -I../../shader/include -I../../stb_image/include
   FORCE_INCLUDE +=
@@ -39,9 +39,9 @@ endif
 
 ifeq ($(config),release)
   RESCOMP = windres
-  TARGETDIR = ../../bin/Release/transformations_src
-  TARGET = $(TARGETDIR)/transformations_src
-  OBJDIR = ../../bin-int/Release/transformations_src
+  TARGETDIR = ../../bin/Release/coordinate_systems_src
+  TARGET = $(TARGETDIR)/coordinate_systems_src
+  OBJDIR = ../../bin-int/Release/coordinate_systems_src
   DEFINES += -DNDEBUG
   INCLUDES += -I../../vendor/glfw/include -I../../vendor/glad/include -I../../vendor/glm -I../../shader/include -I../../stb_image/include
   FORCE_INCLUDE +=
@@ -77,7 +77,7 @@ ifeq (.exe,$(findstring .exe,$(ComSpec)))
 endif
 
 $(TARGET): $(GCH) ${CUSTOMFILES} $(OBJECTS) $(LDDEPS) $(RESOURCES) | $(TARGETDIR)
-	@echo Linking transformations_src
+	@echo Linking coordinate_systems_src
 	$(SILENT) $(LINKCMD)
 	$(POSTBUILDCMDS)
 
@@ -100,7 +100,7 @@ else
 endif
 
 clean:
-	@echo Cleaning transformations_src
+	@echo Cleaning coordinate_systems_src
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -f  $(TARGET)
 	$(SILENT) rm -rf $(OBJDIR)
