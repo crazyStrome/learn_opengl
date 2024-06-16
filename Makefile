@@ -32,6 +32,8 @@ ifeq ($(config),debug)
   coordinate_systems_src_config = debug
   camera_sandbox_src_config = debug
   colors_src_config = debug
+  basic_lighting_src_config = debug
+  basic_lighting_prac1_config = debug
 endif
 ifeq ($(config),release)
   GLFW_config = release
@@ -57,13 +59,17 @@ ifeq ($(config),release)
   coordinate_systems_src_config = release
   camera_sandbox_src_config = release
   colors_src_config = release
+  basic_lighting_src_config = release
+  basic_lighting_prac1_config = release
 endif
 
-PROJECTS := GLFW glad shader hello_window hello_triangle_src hello_triangle_prac1 hello_triangle_prac2 hello_triangle_prac3 shaders_src shaders_prac1 shaders_prac2 shaders_prac3 textures_src textures_prac1 textures_prac2 textures_prac3 textures_prac4 transformations_src transformations_prac1 transformations_prac2 coordinate_systems_src camera_sandbox_src colors_src
+PROJECTS := GLFW glad shader hello_window hello_triangle_src hello_triangle_prac1 hello_triangle_prac2 hello_triangle_prac3 shaders_src shaders_prac1 shaders_prac2 shaders_prac3 textures_src textures_prac1 textures_prac2 textures_prac3 textures_prac4 transformations_src transformations_prac1 transformations_prac2 coordinate_systems_src camera_sandbox_src colors_src basic_lighting_src basic_lighting_prac1
 
-.PHONY: all clean help $(PROJECTS) camera_sandbox colors hello_triangle shaders textures transformations
+.PHONY: all clean help $(PROJECTS) basic_lighting camera_sandbox colors hello_triangle shaders textures transformations
 
 all: $(PROJECTS)
+
+basic_lighting: basic_lighting_prac1 basic_lighting_src
 
 camera_sandbox: camera_sandbox_src
 
@@ -215,6 +221,18 @@ ifneq (,$(colors_src_config))
 	@${MAKE} --no-print-directory -C colors/src -f Makefile config=$(colors_src_config)
 endif
 
+basic_lighting_src: GLFW glad shader
+ifneq (,$(basic_lighting_src_config))
+	@echo "==== Building basic_lighting_src ($(basic_lighting_src_config)) ===="
+	@${MAKE} --no-print-directory -C basic_lighting/src -f Makefile config=$(basic_lighting_src_config)
+endif
+
+basic_lighting_prac1: GLFW glad shader
+ifneq (,$(basic_lighting_prac1_config))
+	@echo "==== Building basic_lighting_prac1 ($(basic_lighting_prac1_config)) ===="
+	@${MAKE} --no-print-directory -C basic_lighting/prac1 -f Makefile config=$(basic_lighting_prac1_config)
+endif
+
 clean:
 	@${MAKE} --no-print-directory -C vendor/glfw -f Makefile clean
 	@${MAKE} --no-print-directory -C vendor/glad -f Makefile clean
@@ -239,6 +257,8 @@ clean:
 	@${MAKE} --no-print-directory -C coordinate_systems/src -f Makefile clean
 	@${MAKE} --no-print-directory -C camera_sandbox/src -f Makefile clean
 	@${MAKE} --no-print-directory -C colors/src -f Makefile clean
+	@${MAKE} --no-print-directory -C basic_lighting/src -f Makefile clean
+	@${MAKE} --no-print-directory -C basic_lighting/prac1 -f Makefile clean
 
 help:
 	@echo "Usage: make [config=name] [target]"
@@ -273,5 +293,7 @@ help:
 	@echo "   coordinate_systems_src"
 	@echo "   camera_sandbox_src"
 	@echo "   colors_src"
+	@echo "   basic_lighting_src"
+	@echo "   basic_lighting_prac1"
 	@echo ""
 	@echo "For more information, see https://github.com/premake/premake-core/wiki"

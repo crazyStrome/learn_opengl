@@ -27,6 +27,7 @@ include "transformations"
 include "coordinate_systems"
 include "camera_sandbox"
 include "colors"
+include "basic_lighting"
 
 if _ACTION == "clean" then
     os.rmdir("./bin")

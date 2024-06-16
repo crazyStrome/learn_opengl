@@ -116,6 +116,8 @@ public:
     {
         return glm::lookAt(m_CameraPos, m_CameraPos + m_CameraFront, m_CameraUp);
     }
+
+    glm::vec3 GetPosition() const { return m_CameraPos; }
 };
 
 std::ostream& operator<<(std::ostream& out, const glm::mat4& data)
