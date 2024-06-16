@@ -1,0 +1,2 @@
+group "colors"
+    include "src"
