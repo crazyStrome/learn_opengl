@@ -12,11 +12,11 @@ endif
 
 ifeq ($(config),debug)
   RESCOMP = windres
-  TARGETDIR = ../../bin/Debug/transformations_prac2
-  TARGET = $(TARGETDIR)/transformations_prac2
-  OBJDIR = ../../bin-int/Debug/transformations_prac2
+  TARGETDIR = ../../bin/Debug/camera_sandbox_src
+  TARGET = $(TARGETDIR)/camera_sandbox_src
+  OBJDIR = ../../bin-int/Debug/camera_sandbox_src
   DEFINES += -DDEBUG
-  INCLUDES += -I../../vendor/glfw/include -I../../vendor/glad/include -I../../vendor/glm -I../../shader/include -I../../stb_image/include
+  INCLUDES += -I../../vendor/glfw/include -I../../vendor/glad/include -I../../vendor/glm -I../../camera/include -I../../shader/include -I../../stb_image/include
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -g
@@ -39,11 +39,11 @@ endif
 
 ifeq ($(config),release)
   RESCOMP = windres
-  TARGETDIR = ../../bin/Release/transformations_prac2
-  TARGET = $(TARGETDIR)/transformations_prac2
-  OBJDIR = ../../bin-int/Release/transformations_prac2
+  TARGETDIR = ../../bin/Release/camera_sandbox_src
+  TARGET = $(TARGETDIR)/camera_sandbox_src
+  OBJDIR = ../../bin-int/Release/camera_sandbox_src
   DEFINES += -DNDEBUG
-  INCLUDES += -I../../vendor/glfw/include -I../../vendor/glad/include -I../../vendor/glm -I../../shader/include -I../../stb_image/include
+  INCLUDES += -I../../vendor/glfw/include -I../../vendor/glad/include -I../../vendor/glm -I../../camera/include -I../../shader/include -I../../stb_image/include
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -O2
@@ -77,7 +77,7 @@ ifeq (.exe,$(findstring .exe,$(ComSpec)))
 endif
 
 $(TARGET): $(GCH) ${CUSTOMFILES} $(OBJECTS) $(LDDEPS) $(RESOURCES) | $(TARGETDIR)
-	@echo Linking transformations_prac2
+	@echo Linking camera_sandbox_src
 	$(SILENT) $(LINKCMD)
 	$(POSTBUILDCMDS)
 
@@ -100,7 +100,7 @@ else
 endif
 
 clean:
-	@echo Cleaning transformations_prac2
+	@echo Cleaning camera_sandbox_src
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -f  $(TARGET)
 	$(SILENT) rm -rf $(OBJDIR)

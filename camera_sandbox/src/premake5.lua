@@ -1,4 +1,4 @@
-project "transformations_prac1"  
+project "camera_sandbox_src"  
     filename "%{prj.group}_%{prj.name}"
     kind "ConsoleApp"   
     language "C++"   
@@ -9,6 +9,7 @@ project "transformations_prac1"
         "%{IncludeDirs.glfw}",
         "%{IncludeDirs.glad}",
         "%{IncludeDirs.glm}",
+        "%{IncludeDirs.camera}",
         "%{IncludeDirs.shader}",
         "%{IncludeDirs.stb_image}",
     }

@@ -30,6 +30,7 @@ ifeq ($(config),debug)
   transformations_prac1_config = debug
   transformations_prac2_config = debug
   coordinate_systems_src_config = debug
+  camera_sandbox_src_config = debug
 endif
 ifeq ($(config),release)
   GLFW_config = release
@@ -53,13 +54,16 @@ ifeq ($(config),release)
   transformations_prac1_config = release
   transformations_prac2_config = release
   coordinate_systems_src_config = release
+  camera_sandbox_src_config = release
 endif
 
-PROJECTS := GLFW glad shader hello_window hello_triangle_src hello_triangle_prac1 hello_triangle_prac2 hello_triangle_prac3 shaders_src shaders_prac1 shaders_prac2 shaders_prac3 textures_src textures_prac1 textures_prac2 textures_prac3 textures_prac4 transformations_src transformations_prac1 transformations_prac2 coordinate_systems_src
+PROJECTS := GLFW glad shader hello_window hello_triangle_src hello_triangle_prac1 hello_triangle_prac2 hello_triangle_prac3 shaders_src shaders_prac1 shaders_prac2 shaders_prac3 textures_src textures_prac1 textures_prac2 textures_prac3 textures_prac4 transformations_src transformations_prac1 transformations_prac2 coordinate_systems_src camera_sandbox_src
 
-.PHONY: all clean help $(PROJECTS) hello_triangle shaders textures transformations
+.PHONY: all clean help $(PROJECTS) camera_sandbox hello_triangle shaders textures transformations
 
 all: $(PROJECTS)
+
+camera_sandbox: camera_sandbox_src
 
 hello_triangle: hello_triangle_prac1 hello_triangle_prac2 hello_triangle_prac3 hello_triangle_src
 
@@ -195,6 +199,12 @@ ifneq (,$(coordinate_systems_src_config))
 	@${MAKE} --no-print-directory -C coordinate_systems/src -f Makefile config=$(coordinate_systems_src_config)
 endif
 
+camera_sandbox_src: GLFW glad shader
+ifneq (,$(camera_sandbox_src_config))
+	@echo "==== Building camera_sandbox_src ($(camera_sandbox_src_config)) ===="
+	@${MAKE} --no-print-directory -C camera_sandbox/src -f Makefile config=$(camera_sandbox_src_config)
+endif
+
 clean:
 	@${MAKE} --no-print-directory -C vendor/glfw -f Makefile clean
 	@${MAKE} --no-print-directory -C vendor/glad -f Makefile clean
@@ -217,6 +227,7 @@ clean:
 	@${MAKE} --no-print-directory -C transformations/prac1 -f Makefile clean
 	@${MAKE} --no-print-directory -C transformations/prac2 -f Makefile clean
 	@${MAKE} --no-print-directory -C coordinate_systems/src -f Makefile clean
+	@${MAKE} --no-print-directory -C camera_sandbox/src -f Makefile clean
 
 help:
 	@echo "Usage: make [config=name] [target]"
@@ -249,5 +260,6 @@ help:
 	@echo "   transformations_prac1"
 	@echo "   transformations_prac2"
 	@echo "   coordinate_systems_src"
+	@echo "   camera_sandbox_src"
 	@echo ""
 	@echo "For more information, see https://github.com/premake/premake-core/wiki"

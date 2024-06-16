@@ -11,6 +11,7 @@ IncludeDirs["glfw"] = "%{wks.location}/vendor/glfw/include"
 IncludeDirs["glad"] = "%{wks.location}/vendor/glad/include"
 IncludeDirs["glm"] = "%{wks.location}/vendor/glm"
 IncludeDirs["shader"] = "%{wks.location}/shader/include"
+IncludeDirs["camera"] = "%{wks.location}/camera/include"
 IncludeDirs["stb_image"] = "%{wks.location}/stb_image/include"
 
 include "vendor/glfw"
@@ -24,6 +25,7 @@ include "shaders"
 include "textures"
 include "transformations"
 include "coordinate_systems"
+include "camera_sandbox"
 
 if _ACTION == "clean" then
     os.rmdir("./bin")
