@@ -6,6 +6,8 @@
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/vendor/glfw/include",
                 "${workspaceFolder}/vendor/glad/include",
+                "${workspaceFolder}/shader/include",
+                "${workspaceFolder}/stb_image/include",
             ],
             "defines": [],
             "cStandard": "c17",

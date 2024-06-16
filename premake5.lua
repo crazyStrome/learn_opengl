@@ -10,6 +10,7 @@ IncludeDirs = {}
 IncludeDirs["glfw"] = "%{wks.location}/vendor/glfw/include"
 IncludeDirs["glad"] = "%{wks.location}/vendor/glad/include"
 IncludeDirs["shader"] = "%{wks.location}/shader/include"
+IncludeDirs["stb_image"] = "%{wks.location}/stb_image/include"
 
 include "vendor/glfw"
 include "vendor/glad"
@@ -19,6 +20,7 @@ include "shader"
 include "hello_window"
 include "hello_triangle"
 include "shaders"
+include "textures"
 
 if _ACTION == "clean" then
     os.rmdir("./bin")
