@@ -41,12 +41,13 @@ in vec3 FragPos;
 in vec2 TexCoords;
 uniform vec3 viewPos;
 
+uniform float matrixMove;
 out vec4 FragColor;
 
 void main()
 {
     // 环境光
-    vec3 ambient = light.ambient * texture(material.ambient, TexCoords).rgb;
+    vec3 ambient = light.ambient * texture(material.ambient, vec2(TexCoords.x, TexCoords.y+matrixMove)).rgb;
     
     // 漫反射   
     vec3 norm = normalize(Normal);

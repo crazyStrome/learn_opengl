@@ -229,7 +229,7 @@ int main()
             //lightColor.z = sin(glfwGetTime() * 1.3f);
 
             glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f);
-            glm::vec3 ambientColor = lightColor * glm::vec3(0.7f);
+            glm::vec3 ambientColor = lightColor * glm::vec3((float)sin(glfwGetTime()) / 2.0f + 0.5f);
 
             glm::mat4 model(1.0f);
             cubeShader.Use();
@@ -246,6 +246,7 @@ int main()
             cubeShader.SetInt("material.diffuse", 0);
             cubeShader.SetInt("material.specular", 1);
             cubeShader.SetInt("material.ambient", 2);
+            cubeShader.SetFloat("matrixMove", glfwGetTime());
             glActiveTexture(GL_TEXTURE0);
             glBindTexture(GL_TEXTURE_2D, diffuseMap);
             glActiveTexture(GL_TEXTURE1);
