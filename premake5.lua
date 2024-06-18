@@ -31,6 +31,7 @@ include "basic_lighting"
 include "materials"
 include "lighting_maps"
 include "light_casters"
+include "multiple_lights"
 
 if _ACTION == "clean" then
     os.rmdir("./bin")

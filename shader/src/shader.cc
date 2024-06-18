@@ -4,7 +4,7 @@
 #include <sstream>
 #include <iostream>
 #include <glm/gtc/type_ptr.hpp>
-
+#include <exception>
 
 SharderSource Shader::ParseShaderSource(const std::string& sourcePath)
 {
@@ -76,6 +76,7 @@ Shader::Shader(const std::string& sourcePath)
         char info[512];
         glGetProgramInfoLog(ID, 512, nullptr, info);
         std::cout << "Error: link shader program failed, " << info << std::endl;
+        throw new std::runtime_error("link err");
     }
 
     glDeleteShader(vertexShader);
@@ -115,6 +116,11 @@ void Shader::SetMat4(const std::string& name, const glm::mat4& trans) const
 void Shader::SetVec3(const std::string& name, const glm::vec3& vec) const
 {
     glUniform3fv(GetUniformLocation(name), 1, &vec[0]);
+}
+
+void Shader::SetVec3(const std::string& name, float x, float y, float z) const
+{
+    SetVec3(name, glm::vec3(x, y, z));
 }
 
 int Shader::GetUniformLocation(const std::string& name) const
