@@ -36,6 +36,7 @@ ifeq ($(config),debug)
   basic_lighting_prac1_config = debug
   materials_src_config = debug
   lighting_maps_src_config = debug
+  light_casters_src_config = debug
 endif
 ifeq ($(config),release)
   GLFW_config = release
@@ -65,11 +66,12 @@ ifeq ($(config),release)
   basic_lighting_prac1_config = release
   materials_src_config = release
   lighting_maps_src_config = release
+  light_casters_src_config = release
 endif
 
-PROJECTS := GLFW glad shader hello_window hello_triangle_src hello_triangle_prac1 hello_triangle_prac2 hello_triangle_prac3 shaders_src shaders_prac1 shaders_prac2 shaders_prac3 textures_src textures_prac1 textures_prac2 textures_prac3 textures_prac4 transformations_src transformations_prac1 transformations_prac2 coordinate_systems_src camera_sandbox_src colors_src basic_lighting_src basic_lighting_prac1 materials_src lighting_maps_src
+PROJECTS := GLFW glad shader hello_window hello_triangle_src hello_triangle_prac1 hello_triangle_prac2 hello_triangle_prac3 shaders_src shaders_prac1 shaders_prac2 shaders_prac3 textures_src textures_prac1 textures_prac2 textures_prac3 textures_prac4 transformations_src transformations_prac1 transformations_prac2 coordinate_systems_src camera_sandbox_src colors_src basic_lighting_src basic_lighting_prac1 materials_src lighting_maps_src light_casters_src
 
-.PHONY: all clean help $(PROJECTS) basic_lighting camera_sandbox colors hello_triangle lighting_maps materials shaders textures transformations
+.PHONY: all clean help $(PROJECTS) basic_lighting camera_sandbox colors hello_triangle light_casters lighting_maps materials shaders textures transformations
 
 all: $(PROJECTS)
 
@@ -80,6 +82,8 @@ camera_sandbox: camera_sandbox_src
 colors: colors_src
 
 hello_triangle: hello_triangle_prac1 hello_triangle_prac2 hello_triangle_prac3 hello_triangle_src
+
+light_casters: light_casters_src
 
 lighting_maps: lighting_maps_src
 
@@ -253,6 +257,12 @@ ifneq (,$(lighting_maps_src_config))
 	@${MAKE} --no-print-directory -C lighting_maps/src -f Makefile config=$(lighting_maps_src_config)
 endif
 
+light_casters_src: GLFW glad shader
+ifneq (,$(light_casters_src_config))
+	@echo "==== Building light_casters_src ($(light_casters_src_config)) ===="
+	@${MAKE} --no-print-directory -C light_casters/src -f Makefile config=$(light_casters_src_config)
+endif
+
 clean:
 	@${MAKE} --no-print-directory -C vendor/glfw -f Makefile clean
 	@${MAKE} --no-print-directory -C vendor/glad -f Makefile clean
@@ -281,6 +291,7 @@ clean:
 	@${MAKE} --no-print-directory -C basic_lighting/prac1 -f Makefile clean
 	@${MAKE} --no-print-directory -C materials/src -f Makefile clean
 	@${MAKE} --no-print-directory -C lighting_maps/src -f Makefile clean
+	@${MAKE} --no-print-directory -C light_casters/src -f Makefile clean
 
 help:
 	@echo "Usage: make [config=name] [target]"
@@ -319,5 +330,6 @@ help:
 	@echo "   basic_lighting_prac1"
 	@echo "   materials_src"
 	@echo "   lighting_maps_src"
+	@echo "   light_casters_src"
 	@echo ""
 	@echo "For more information, see https://github.com/premake/premake-core/wiki"

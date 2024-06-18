@@ -26,12 +26,15 @@ const float DefaultCameraSpeed = 2.5f;
 
 std::ostream& operator<<(std::ostream& out, const glm::mat4& data);
 
+const glm::vec3 WorldUp(0.0f, 1.0f, 0.0f);
+
 class Camera
 {
 private:
     glm::vec3 m_CameraPos;
     glm::vec3 m_CameraFront;
     glm::vec3 m_CameraUp;
+    glm::vec3 m_CameraRight;
 
     float m_Pitch;
     float m_Yaw;
@@ -39,6 +42,17 @@ private:
 
     float m_Sensitity;
     float m_CameraSpeed;
+
+    void updateCameraVectors()
+    {
+        glm::vec3 front;
+        front.x = cos(glm::radians(m_Yaw)) * cos(glm::radians(m_Pitch));
+        front.y = sin(glm::radians(m_Pitch));
+        front.z = sin(glm::radians(m_Yaw)) * cos(glm::radians(m_Pitch));
+        m_CameraFront = glm::normalize(front);
+        m_CameraRight = glm::normalize(glm::cross(m_CameraFront, WorldUp));
+        m_CameraUp = glm::normalize(glm::cross(m_CameraRight, m_CameraFront));
+    }
 public:
     Camera(const glm::vec3& pos = glm::vec3(0.0f, 0.0f, 0.3f),
         const glm::vec3& front = glm::vec3(0.0f, 0.0f, -1.0f),
@@ -53,6 +67,7 @@ public:
         m_Yaw(yaw), m_Pitch(pitch), m_Fov(fov), m_Sensitity(sensitity),
         m_CameraSpeed(speed)
     {
+        updateCameraVectors();
     }
     void OnKeyMoveEvent(MoveDirection direction, float deltaTime)
     {
@@ -66,10 +81,10 @@ public:
         m_CameraPos -= distance * m_CameraFront;
         break;
         case MoveDirection::LEFT:
-        m_CameraPos -= glm::normalize(glm::cross(m_CameraFront, m_CameraUp)) * distance;
+        m_CameraPos -= m_CameraRight * distance;
         break;
         case MoveDirection::RIGHT:
-        m_CameraPos += glm::normalize(glm::cross(m_CameraFront, m_CameraUp)) * distance;
+        m_CameraPos += m_CameraRight * distance;
         break;
         }
     }
@@ -89,12 +104,7 @@ public:
         {
             m_Pitch = MinPith;
         }
-
-        glm::vec3 front;
-        front.x = cos(glm::radians(m_Yaw)) * cos(glm::radians(m_Pitch));
-        front.y = sin(glm::radians(m_Pitch));
-        front.z = sin(glm::radians(m_Yaw)) * cos(glm::radians(m_Pitch));
-        m_CameraFront = glm::normalize(front);
+        updateCameraVectors();
     }
 
     float GetFov() const { return m_Fov; }
@@ -118,6 +128,7 @@ public:
     }
 
     glm::vec3 GetPosition() const { return m_CameraPos; }
+    glm::vec3 GetFront() const { return m_CameraFront; }
 };
 
 std::ostream& operator<<(std::ostream& out, const glm::mat4& data)
