@@ -85,6 +85,7 @@ Shader::Shader(const std::string& sourcePath)
 
 Shader::~Shader()
 {
+    std::cout << "Shader destroy: " << ID << std::endl;
     glDeleteProgram(ID);
 }
 

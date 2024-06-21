@@ -13,6 +13,14 @@
 
 #include "camera.h"
 
+#include <assimp/Importer.hpp>
+#include <assimp/postprocess.h>
+#include <assimp/scene.h>
+#include <assimp/DefaultLogger.hpp>
+#include <assimp/LogStream.hpp>
+
+Assimp::Importer importer;
+
 static int ScreenWidth = 800;
 static int ScreenHeight = 600;
 

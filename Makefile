@@ -12,6 +12,8 @@ ifeq ($(config),debug)
   GLFW_config = debug
   glad_config = debug
   shader_config = debug
+  mesh_config = debug
+  model_config = debug
   hello_window_config = debug
   hello_triangle_src_config = debug
   hello_triangle_prac1_config = debug
@@ -38,11 +40,14 @@ ifeq ($(config),debug)
   lighting_maps_src_config = debug
   light_casters_src_config = debug
   multiple_lights_src_config = debug
+  test_model_src_config = debug
 endif
 ifeq ($(config),release)
   GLFW_config = release
   glad_config = release
   shader_config = release
+  mesh_config = release
+  model_config = release
   hello_window_config = release
   hello_triangle_src_config = release
   hello_triangle_prac1_config = release
@@ -69,11 +74,12 @@ ifeq ($(config),release)
   lighting_maps_src_config = release
   light_casters_src_config = release
   multiple_lights_src_config = release
+  test_model_src_config = release
 endif
 
-PROJECTS := GLFW glad shader hello_window hello_triangle_src hello_triangle_prac1 hello_triangle_prac2 hello_triangle_prac3 shaders_src shaders_prac1 shaders_prac2 shaders_prac3 textures_src textures_prac1 textures_prac2 textures_prac3 textures_prac4 transformations_src transformations_prac1 transformations_prac2 coordinate_systems_src camera_sandbox_src colors_src basic_lighting_src basic_lighting_prac1 materials_src lighting_maps_src light_casters_src multiple_lights_src
+PROJECTS := GLFW glad shader mesh model hello_window hello_triangle_src hello_triangle_prac1 hello_triangle_prac2 hello_triangle_prac3 shaders_src shaders_prac1 shaders_prac2 shaders_prac3 textures_src textures_prac1 textures_prac2 textures_prac3 textures_prac4 transformations_src transformations_prac1 transformations_prac2 coordinate_systems_src camera_sandbox_src colors_src basic_lighting_src basic_lighting_prac1 materials_src lighting_maps_src light_casters_src multiple_lights_src test_model_src
 
-.PHONY: all clean help $(PROJECTS) basic_lighting camera_sandbox colors hello_triangle light_casters lighting_maps materials multiple_lights shaders textures transformations
+.PHONY: all clean help $(PROJECTS) basic_lighting camera_sandbox colors hello_triangle light_casters lighting_maps materials multiple_lights shaders test_model textures transformations
 
 all: $(PROJECTS)
 
@@ -95,6 +101,8 @@ multiple_lights: multiple_lights_src
 
 shaders: shaders_prac1 shaders_prac2 shaders_prac3 shaders_src
 
+test_model: test_model_src
+
 textures: textures_prac1 textures_prac2 textures_prac3 textures_prac4 textures_src
 
 transformations: coordinate_systems_src transformations_prac1 transformations_prac2 transformations_src
@@ -115,6 +123,18 @@ shader: GLFW glad
 ifneq (,$(shader_config))
 	@echo "==== Building shader ($(shader_config)) ===="
 	@${MAKE} --no-print-directory -C shader -f Makefile config=$(shader_config)
+endif
+
+mesh: glad shader
+ifneq (,$(mesh_config))
+	@echo "==== Building mesh ($(mesh_config)) ===="
+	@${MAKE} --no-print-directory -C mesh -f Makefile config=$(mesh_config)
+endif
+
+model: glad shader mesh
+ifneq (,$(model_config))
+	@echo "==== Building model ($(model_config)) ===="
+	@${MAKE} --no-print-directory -C model -f Makefile config=$(model_config)
 endif
 
 hello_window: GLFW glad
@@ -273,10 +293,18 @@ ifneq (,$(multiple_lights_src_config))
 	@${MAKE} --no-print-directory -C multiple_lights/src -f Makefile config=$(multiple_lights_src_config)
 endif
 
+test_model_src: GLFW glad shader model mesh
+ifneq (,$(test_model_src_config))
+	@echo "==== Building test_model_src ($(test_model_src_config)) ===="
+	@${MAKE} --no-print-directory -C test_model/src -f Makefile config=$(test_model_src_config)
+endif
+
 clean:
 	@${MAKE} --no-print-directory -C vendor/glfw -f Makefile clean
 	@${MAKE} --no-print-directory -C vendor/glad -f Makefile clean
 	@${MAKE} --no-print-directory -C shader -f Makefile clean
+	@${MAKE} --no-print-directory -C mesh -f Makefile clean
+	@${MAKE} --no-print-directory -C model -f Makefile clean
 	@${MAKE} --no-print-directory -C hello_window -f Makefile clean
 	@${MAKE} --no-print-directory -C hello_triangle/src -f Makefile clean
 	@${MAKE} --no-print-directory -C hello_triangle/prac1 -f Makefile clean
@@ -303,6 +331,7 @@ clean:
 	@${MAKE} --no-print-directory -C lighting_maps/src -f Makefile clean
 	@${MAKE} --no-print-directory -C light_casters/src -f Makefile clean
 	@${MAKE} --no-print-directory -C multiple_lights/src -f Makefile clean
+	@${MAKE} --no-print-directory -C test_model/src -f Makefile clean
 
 help:
 	@echo "Usage: make [config=name] [target]"
@@ -317,6 +346,8 @@ help:
 	@echo "   GLFW"
 	@echo "   glad"
 	@echo "   shader"
+	@echo "   mesh"
+	@echo "   model"
 	@echo "   hello_window"
 	@echo "   hello_triangle_src"
 	@echo "   hello_triangle_prac1"
@@ -343,5 +374,6 @@ help:
 	@echo "   lighting_maps_src"
 	@echo "   light_casters_src"
 	@echo "   multiple_lights_src"
+	@echo "   test_model_src"
 	@echo ""
 	@echo "For more information, see https://github.com/premake/premake-core/wiki"

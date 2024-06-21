@@ -9,9 +9,13 @@ project "multiple_lights_src"
         "%{IncludeDirs.glfw}",
         "%{IncludeDirs.glad}",
         "%{IncludeDirs.glm}",
+        "%{IncludeDirs.assimp}",
         "%{IncludeDirs.camera}",
         "%{IncludeDirs.shader}",
         "%{IncludeDirs.stb_image}",
+    }
+    libdirs {
+        "%{LinkDirs.assimp}",
     }
     files { 
         "main.cc", 
@@ -21,6 +25,7 @@ project "multiple_lights_src"
         "GL",
         "glad",
         "shader",
+        "assimp",
     }
     filter "configurations:Debug"
         defines { "DEBUG" }  
