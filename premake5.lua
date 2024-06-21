@@ -41,6 +41,7 @@ include "lighting_maps"
 include "light_casters"
 include "multiple_lights"
 include "test_model"
+include "depth_testing"
 
 if _ACTION == "clean" then
     os.rmdir("./bin")
