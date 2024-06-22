@@ -4,7 +4,7 @@
             "name": "(gdb) 启动",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/bin/Debug/basic_lighting_src/basic_lighting_src",
+            "program": "${workspaceFolder}/bin/Debug/depth_testing_src/depth_testing_src",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

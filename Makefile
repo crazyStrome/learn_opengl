@@ -43,6 +43,7 @@ ifeq ($(config),debug)
   test_model_src_config = debug
   depth_testing_src_config = debug
   stencil_testing_src_config = debug
+  blending_src_config = debug
 endif
 ifeq ($(config),release)
   GLFW_config = release
@@ -79,15 +80,18 @@ ifeq ($(config),release)
   test_model_src_config = release
   depth_testing_src_config = release
   stencil_testing_src_config = release
+  blending_src_config = release
 endif
 
-PROJECTS := GLFW glad shader mesh model hello_window hello_triangle_src hello_triangle_prac1 hello_triangle_prac2 hello_triangle_prac3 shaders_src shaders_prac1 shaders_prac2 shaders_prac3 textures_src textures_prac1 textures_prac2 textures_prac3 textures_prac4 transformations_src transformations_prac1 transformations_prac2 coordinate_systems_src camera_sandbox_src colors_src basic_lighting_src basic_lighting_prac1 materials_src lighting_maps_src light_casters_src multiple_lights_src test_model_src depth_testing_src stencil_testing_src
+PROJECTS := GLFW glad shader mesh model hello_window hello_triangle_src hello_triangle_prac1 hello_triangle_prac2 hello_triangle_prac3 shaders_src shaders_prac1 shaders_prac2 shaders_prac3 textures_src textures_prac1 textures_prac2 textures_prac3 textures_prac4 transformations_src transformations_prac1 transformations_prac2 coordinate_systems_src camera_sandbox_src colors_src basic_lighting_src basic_lighting_prac1 materials_src lighting_maps_src light_casters_src multiple_lights_src test_model_src depth_testing_src stencil_testing_src blending_src
 
-.PHONY: all clean help $(PROJECTS) basic_lighting camera_sandbox colors depth_testing hello_triangle light_casters lighting_maps materials multiple_lights shaders stencil_testing test_model textures transformations
+.PHONY: all clean help $(PROJECTS) basic_lighting blending camera_sandbox colors depth_testing hello_triangle light_casters lighting_maps materials multiple_lights shaders stencil_testing test_model textures transformations
 
 all: $(PROJECTS)
 
 basic_lighting: basic_lighting_prac1 basic_lighting_src
+
+blending: blending_src
 
 camera_sandbox: camera_sandbox_src
 
@@ -319,6 +323,12 @@ ifneq (,$(stencil_testing_src_config))
 	@${MAKE} --no-print-directory -C stencil_testing/src -f Makefile config=$(stencil_testing_src_config)
 endif
 
+blending_src: GLFW glad shader
+ifneq (,$(blending_src_config))
+	@echo "==== Building blending_src ($(blending_src_config)) ===="
+	@${MAKE} --no-print-directory -C blending/src -f Makefile config=$(blending_src_config)
+endif
+
 clean:
 	@${MAKE} --no-print-directory -C vendor/glfw -f Makefile clean
 	@${MAKE} --no-print-directory -C vendor/glad -f Makefile clean
@@ -354,6 +364,7 @@ clean:
 	@${MAKE} --no-print-directory -C test_model/src -f Makefile clean
 	@${MAKE} --no-print-directory -C depth_testing/src -f Makefile clean
 	@${MAKE} --no-print-directory -C stencil_testing/src -f Makefile clean
+	@${MAKE} --no-print-directory -C blending/src -f Makefile clean
 
 help:
 	@echo "Usage: make [config=name] [target]"
@@ -399,5 +410,6 @@ help:
 	@echo "   test_model_src"
 	@echo "   depth_testing_src"
 	@echo "   stencil_testing_src"
+	@echo "   blending_src"
 	@echo ""
 	@echo "For more information, see https://github.com/premake/premake-core/wiki"
