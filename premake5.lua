@@ -44,6 +44,7 @@ include "test_model"
 include "depth_testing"
 include "stencil_testing"
 include "blending"
+include "face_culling"
 
 if _ACTION == "clean" then
     os.rmdir("./bin")
